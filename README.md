@@ -1,5 +1,5 @@
 # grekd
-Full-featured cloud-baser grekan-service
+Full-featured cloud-based grekan-service
 
 #### Api functions:
 
