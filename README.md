@@ -19,17 +19,21 @@ takes: key (string) - header, image (raw bytes) request body<br>
 returns: string
 
 `delete_image`
+
 takes: key (string) - header, id (int) - query param<br>
 returns: string
 
 `get_post_in_range`
+
 takes: from (Date) - query param, to (Date) - query param<br>
 returns: json
 
 `count_posts`
+
 takes: nothing<br>
 returns: int
 
 `count_images`
+
 takes: nothing<br>
 returns: int
