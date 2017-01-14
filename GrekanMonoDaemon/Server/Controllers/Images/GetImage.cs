@@ -27,16 +27,27 @@ namespace GrekanMonoDaemon.Server.Controllers.Images
 
             response.ContentType = "image/jpeg";
 
-            var t = ImageRepository.GetImage(id);
+            var task = ImageRepository.GetImage(id);
 
-            try
+            int w;
+            int.TryParse(request.QueryString["w"], out w);
+
+
+            task.Wait();
+
+            using (var image = task.Result)
             {
-                t.Wait();
-                t.Result.Save(response.OutputStream, ImageFormat.Jpeg);
-            }
-            finally
-            {
-                t.Result.Dispose();
+                if (w != 0)
+                {
+                    using (var resized = image.Resize(w, w))
+                    {
+                        resized.Save(response.OutputStream, ImageFormat.Jpeg);
+                    }
+                }
+                else
+                {
+                    image.Save(response.OutputStream, ImageFormat.Jpeg);
+                }
             }
         }
     }

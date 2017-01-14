@@ -35,7 +35,7 @@ namespace GrekanMonoDaemon.Job
                 JobBuilder.Create<GedSync>().Build(),
                 TriggerBuilder.Create()
                     .StartNow()
-                    .WithSimpleSchedule(x => x.WithIntervalInMinutes(45).RepeatForever())
+                    .WithSimpleSchedule(x => x.WithIntervalInHours(12).RepeatForever())
             ));
         }
 

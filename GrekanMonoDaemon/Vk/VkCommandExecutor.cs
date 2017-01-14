@@ -4,9 +4,9 @@ using VkNet.Exception;
 
 namespace GrekanMonoDaemon.Vk
 {
-    public abstract class VkPublisher : BaseVk
+    public abstract class VkCommandExecutor : BaseVk
     {
-        public void Publish()
+        public void Execute()
         {
             try
             {
@@ -15,23 +15,23 @@ namespace GrekanMonoDaemon.Vk
                     Auth();
                 }
 
-                OnPublish?.Invoke();
+                OnExecute?.Invoke();
             }
             catch (Exception e)
             {
                 if (e is AccessTokenInvalidException)
                 {
-                    Logger.Log.Error("Trying to renew token...");
+                    Logger.Error("Trying to renew token...");
                     Auth();
-                    OnPublish?.Invoke();
+                    OnExecute?.Invoke();
                 }
                 else
                 {
-                    Logger.Log.Error(e);
+                    Logger.Error(e);
                 }
             }
         }
 
-        protected event Action OnPublish;
+        protected event Action OnExecute;
     }
 }

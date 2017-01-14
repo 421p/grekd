@@ -16,7 +16,7 @@ namespace GrekanMonoDaemon.Job
 
         public void Execute(IJobExecutionContext context)
         {
-            _publisher.Publish();
+            _publisher.Execute();
         }
     }
 }

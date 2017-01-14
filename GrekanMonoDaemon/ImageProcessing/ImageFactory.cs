@@ -50,7 +50,7 @@ namespace GrekanMonoDaemon.ImageProcessing
 
             var quote = HttpUtility.HtmlDecode(post.Text).Replace("<br>", "\n").Replace("\n", " ");
 
-            Logger.Log.Info($"Generated grekan with text: {post.Text}\n Original text was created in: {post.Date}");
+            Logger.Info($"Generated grekan with text: {post.Text}\n Original text was created in: {post.Date}");
 
             var chunks = quote.SplitByLength(lineWidth).Reverse().ToArray();
 

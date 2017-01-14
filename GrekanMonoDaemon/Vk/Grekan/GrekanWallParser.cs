@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using GrekanMonoDaemon.Logging;
 using VkNet.Enums.SafetyEnums;
 using VkNet.Exception;
 using VkNet.Model;
@@ -9,24 +10,24 @@ using VkNet.Model.RequestParams;
 
 namespace GrekanMonoDaemon.Vk.Grekan
 {
-    public class GrekanWallParser : VkParser
+    public class GrekanWallParser : VkCommandExecutor
     {
         public List<Post> Get(ulong count = 50)
         {
             var posts = new List<Post>();
 
-            OnParse += () =>
+            OnExecute += () =>
             {
                 posts.AddRange(Api.Wall.Get(new WallGetParams
                     {
                         Count = count,
-                        OwnerId = (long)Config.grekan_id,
+                        OwnerId = (long) Config.grekan_id,
                         Filter = WallFilter.Owner
                     })
                     .WallPosts);
             };
 
-            Parse();
+            Execute();
 
             return posts;
         }
@@ -39,7 +40,7 @@ namespace GrekanMonoDaemon.Vk.Grekan
 
             var posts = new List<Post>();
 
-            OnParse += () =>
+            OnExecute += () =>
             {
                 try
                 {
@@ -55,15 +56,16 @@ namespace GrekanMonoDaemon.Vk.Grekan
 
                     posts.AddRange(part.WallPosts);
                 }
-                catch (InvalidParameterException)
+                catch (Exception e)
                 {
+                    Logger.Error($"Failed to get wall: {e.Message}");
                 }
             };
 
             for (; offset < totalCount; offset += 100)
             {
                 Console.WriteLine($"Offset: {offset}");
-                Parse();
+                Execute();
                 Thread.Sleep(500);
             }
 

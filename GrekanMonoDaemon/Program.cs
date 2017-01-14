@@ -1,6 +1,7 @@
 ﻿using GrekanMonoDaemon.Job;
 using GrekanMonoDaemon.Logging;
 using GrekanMonoDaemon.Server;
+using GrekanMonoDaemon.Vk;
 
 namespace GrekanMonoDaemon
 {

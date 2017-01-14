@@ -1,5 +1,6 @@
 ﻿using System.Drawing.Imaging;
 using GrekanMonoDaemon.ImageProcessing;
+using GrekanMonoDaemon.Util;
 using NHttp;
 
 namespace GrekanMonoDaemon.Server.Controllers
@@ -11,14 +12,12 @@ namespace GrekanMonoDaemon.Server.Controllers
             response.ContentType = "image/jpeg";
             var task = ImageFactory.Generate();
 
-            try
+            int w;
+            int.TryParse(request.QueryString["w"], out w);
+
+            using (var image = task.Result)
             {
-                task.Wait();
-                task.Result.Save(response.OutputStream, ImageFormat.Jpeg);
-            }
-            finally
-            {
-                task.Result.Dispose();
+                image.Save(response.OutputStream, ImageFormat.Jpeg);
             }
         }
     }

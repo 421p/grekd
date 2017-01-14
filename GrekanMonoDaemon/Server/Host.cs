@@ -24,14 +24,14 @@ namespace GrekanMonoDaemon.Server
 
         private void OnUnhandledException(object sender, HttpExceptionEventArgs args)
         {
-            Logger.Log.Error(args.Exception);
+            Logger.Error(args.Exception);
         }
 
         private void OnRequestReceived(object sender, HttpRequestEventArgs args)
         {
             if (args.Request.Path != "/favicon.ico")
             {
-                Logger.Log.Info($"HttpRequest received: {args.Request.Path}");
+                Logger.Info($"HttpRequest received: {args.Request.Path}");
             }
 
             _router.Dispatch(args);

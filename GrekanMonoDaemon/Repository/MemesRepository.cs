@@ -61,7 +61,7 @@ namespace GrekanMonoDaemon.Repository
 
         public static async Task Sync()
         {
-            Logger.Log.Info("Syncing posts with Grekan's wall...");
+            Logger.Info("Syncing posts with Grekan's wall...");
 
             var latest = _parser.Get().Map(x => x.Simplify());
 
@@ -76,7 +76,7 @@ namespace GrekanMonoDaemon.Repository
                 }
             }
 
-            Logger.Log.Info("Done.");
+            Logger.Info("Done.");
         }
     }
 }
