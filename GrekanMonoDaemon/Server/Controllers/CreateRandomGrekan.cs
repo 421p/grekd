@@ -10,7 +10,7 @@ namespace GrekanMonoDaemon.Server.Controllers
         public override void Handle(HttpRequest request, HttpResponse response)
         {
             response.ContentType = "image/jpeg";
-            var task = ImageFactory.Generate();
+            var task = ImageFactory.Generate(true);
 
             int w;
             int.TryParse(request.QueryString["w"], out w);

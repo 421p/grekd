@@ -16,7 +16,6 @@ namespace GrekanMonoDaemon.Repository
     {
         private static readonly MongoClient _client;
         private static readonly IMongoCollection<SimplePost> _posts;
-        private static readonly IMongoDatabase _grekileaks;
         private static readonly GrekanWallParser _parser;
 
         static MemesRepository()

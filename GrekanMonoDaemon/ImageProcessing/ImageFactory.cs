@@ -26,7 +26,7 @@ namespace GrekanMonoDaemon.ImageProcessing
             };
         }
 
-        public static async Task<Image> Generate()
+        public static async Task<Image> Generate(bool suppressLog = false)
         {
             var img = await ImageRepository.GetImage();
             _imageWidth = img.Width;
@@ -34,12 +34,12 @@ namespace GrekanMonoDaemon.ImageProcessing
 
             using (var context = Graphics.FromImage(img))
             {
-                WriteText(context).Wait();
+                WriteText(context, suppressLog).Wait();
                 return img;
             }
         }
 
-        private static async Task WriteText(Graphics context)
+        private static async Task WriteText(Graphics context, bool suppressLog)
         {
             const int verticalMargin = 100;
             const int linesNumber = 4;
@@ -50,7 +50,10 @@ namespace GrekanMonoDaemon.ImageProcessing
 
             var quote = HttpUtility.HtmlDecode(post.Text).Replace("<br>", "\n").Replace("\n", " ");
 
-            Logger.Info($"Generated grekan with text: {post.Text}\n Original text was created in: {post.Date}");
+            if (!suppressLog)
+            {
+                Logger.Info($"Generated grekan with text: {post.Text}\n Original text was created in: {post.Date}");
+            }
 
             var chunks = quote.SplitByLength(lineWidth).Reverse().ToArray();
 
