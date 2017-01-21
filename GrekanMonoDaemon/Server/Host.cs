@@ -29,11 +29,7 @@ namespace GrekanMonoDaemon.Server
 
         private void OnRequestReceived(object sender, HttpRequestEventArgs args)
         {
-            if (args.Request.Path != "/favicon.ico")
-            {
-                Logger.Info($"HttpRequest received: {args.Request.Path}");
-            }
-
+            args.Response.Headers.Add("Access-Control-Allow-Origin", "*");
             _router.Dispatch(args);
         }
     }

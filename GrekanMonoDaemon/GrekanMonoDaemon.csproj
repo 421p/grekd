@@ -122,6 +122,7 @@
     <Compile Include="Server\Controllers\Posts\GetPostInRange.cs" />
     <Compile Include="Server\Host.cs" />
     <Compile Include="Server\Router.cs" />
+    <Compile Include="Util\GRandom.cs" />
     <Compile Include="Util\Key.cs" />
     <Compile Include="Util\Utils.cs" />
     <Compile Include="Vk\BaseVk.cs" />

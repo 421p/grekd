@@ -1,4 +1,5 @@
-﻿using GrekanMonoDaemon.Vk;
+﻿using System;
+using GrekanMonoDaemon.Vk;
 using log4net;
 using log4net.Config;
 
@@ -7,7 +8,8 @@ namespace GrekanMonoDaemon.Logging
     public static class Logger
     {
         private static readonly ILog Log;
-        private static MessageSender Sender;
+        private static readonly MessageSender Sender;
+        private static bool UseVk;
 
         static Logger()
         {
@@ -15,20 +17,31 @@ namespace GrekanMonoDaemon.Logging
             Sender = new MessageSender();
         }
 
-        public static void Error(object message)
+        public static void Error(object parameter)
         {
-            Log.Error(message);
-            Sender.Send(1, "бля чето не рабит, а точнее " + message);
+            Log.Error(parameter);
+
+            var exception = parameter as Exception;
+            var message = exception?.Message ?? parameter.ToString();
+
+            if (UseVk)
+            {
+                Sender.Send(1, "чето не рабит, а точнее " + message);
+            }
         }
 
         public static void Info(object message)
         {
             Log.Info(message);
-            Sender.Send(1, message.ToString());
+            if (UseVk)
+            {
+                Sender.Send(1, message.ToString());
+            }
         }
 
-        public static void InitLogger()
+        public static void InitLogger(bool useVk = true)
         {
+            UseVk = useVk;
             XmlConfigurator.Configure();
         }
     }
