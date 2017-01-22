@@ -39,7 +39,7 @@ namespace GrekanMonoDaemon.Util
             return destImage;
         }
 
-        public static void Drop(this HttpResponse resp, string message, int code = 403)
+        public static void Drop(this HttpResponse resp, string message, int code = 200)
         {
             resp.StatusCode = code;
 

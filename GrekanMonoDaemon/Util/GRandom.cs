@@ -9,7 +9,7 @@ namespace GrekanMonoDaemon.Util
 
         public GRandom() : base((int) DateTime.Now.ToBinary())
         {
-            _stash = new Queue<int>(10);
+            _stash = new Queue<int>(15);
         }
 
         public int Next(long minValue, long maxValue)
@@ -19,7 +19,7 @@ namespace GrekanMonoDaemon.Util
 
         public new int Next(int minValue, int maxValue)
         {
-            if (_stash.Count == 10)
+            if (_stash.Count == 15)
             {
                 _stash.Dequeue();
             }

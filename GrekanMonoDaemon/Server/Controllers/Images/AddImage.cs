@@ -2,6 +2,7 @@
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
+using GrekanMonoDaemon.Logging;
 using GrekanMonoDaemon.Repository;
 using GrekanMonoDaemon.Util;
 using NHttp;
@@ -50,6 +51,8 @@ namespace GrekanMonoDaemon.Server.Controllers.Images
 
                 var ms = new MemoryStream();
                 image.Save(ms, ImageFormat.Jpeg);
+
+                Logger.Info($"User with key {key} just added a new image.");
 
                 ImageRepository.Add(ms.ToArray());
                 response.WriteLine("s u c c");

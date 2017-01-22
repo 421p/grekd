@@ -30,6 +30,7 @@ namespace GrekanMonoDaemon.Server
         private void OnRequestReceived(object sender, HttpRequestEventArgs args)
         {
             args.Response.Headers.Add("Access-Control-Allow-Origin", "*");
+            args.Response.Headers.Add("Access-Control-Allow-Headers", "key");
             _router.Dispatch(args);
         }
     }
