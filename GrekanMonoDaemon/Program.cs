@@ -1,9 +1,6 @@
-﻿using System;
-using GrekanMonoDaemon.Job;
+﻿using GrekanMonoDaemon.Job;
 using GrekanMonoDaemon.Logging;
 using GrekanMonoDaemon.Server;
-using GrekanMonoDaemon.Util;
-using GrekanMonoDaemon.Vk;
 
 namespace GrekanMonoDaemon
 {
@@ -11,10 +8,10 @@ namespace GrekanMonoDaemon
     {
         public static void Main(string[] args)
         {
-            Logger.InitLogger(false);
+            Logger.InitLogger();
 
-//            var scheduler = new Scheduler();
-//            scheduler.Engage();
+            var scheduler = new Scheduler();
+            scheduler.Engage();
 
             var host = new Host();
 
