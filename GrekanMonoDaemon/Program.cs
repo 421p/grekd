@@ -11,10 +11,10 @@ namespace GrekanMonoDaemon
     {
         public static void Main(string[] args)
         {
-            Logger.InitLogger();
+            Logger.InitLogger(false);
 
-            var scheduler = new Scheduler();
-            scheduler.Engage();
+//            var scheduler = new Scheduler();
+//            scheduler.Engage();
 
             var host = new Host();
 

@@ -17,9 +17,11 @@ namespace GrekanMonoDaemon.Repository
         private static readonly MongoClient _client;
         private static readonly IMongoCollection<SimplePost> _posts;
         private static readonly GrekanWallParser _parser;
+        private static readonly Random _rand;
 
         static MemesRepository()
         {
+            _rand = new Random((int) DateTime.Now.Ticks);
             _parser = new GrekanWallParser();
             _client = new MongoClient();
             _posts = _client.GetDatabase("grekileaks").GetCollection<SimplePost>("posts");
@@ -41,14 +43,13 @@ namespace GrekanMonoDaemon.Repository
 
         public static async Task<SimplePost> GetRandom(int max = 120)
         {
-            var rand = new Random();
             var size = await _posts.CountAsync(FilterDefinition<SimplePost>.Empty);
 
             while (true)
             {
                 var post = await _posts.Find(FilterDefinition<SimplePost>.Empty)
                     .Limit(-1)
-                    .Skip(rand.Next(0, (int) size - 1))
+                    .Skip(_rand.Next(0, (int) size - 1))
                     .FirstAsync();
 
                 if (post.Text.Length != 0 && post.Text.Length <= 120 && !Regex.IsMatch(post.Text, @"[\/\[\]\|]"))
