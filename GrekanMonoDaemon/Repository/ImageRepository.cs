@@ -25,6 +25,11 @@ namespace GrekanMonoDaemon.Repository
             return _images.Count(FilterDefinition<StoredImage>.Empty);
         }
 
+        public static long LastId()
+        {
+            return GetCount() - 1;
+        }
+
         static ImageRepository()
         {
             _client = new MongoClient();

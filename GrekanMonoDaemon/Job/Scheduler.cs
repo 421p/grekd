@@ -27,7 +27,7 @@ namespace GrekanMonoDaemon.Job
                 TriggerBuilder.Create()
                     .StartNow()
                     .WithDailyTimeIntervalSchedule(x =>
-                        x.WithIntervalInHours(1)
+                        x.WithIntervalInMinutes(40)
                     .OnEveryDay())
             ));
 

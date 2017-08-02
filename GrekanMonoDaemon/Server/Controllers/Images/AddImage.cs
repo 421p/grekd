@@ -52,9 +52,11 @@ namespace GrekanMonoDaemon.Server.Controllers.Images
                 var ms = new MemoryStream();
                 image.Save(ms, ImageFormat.Jpeg);
 
-                Logger.Info($"User with key {key} just added a new image.");
-
                 ImageRepository.Add(ms.ToArray());
+
+                Logger.Info($"User noted as '{key.Note}' just added a new image.");
+                Logger.Info($"http://backend.grekan.tk/get_image?id={ImageRepository.LastId()}");
+
                 response.WriteLine("s u c c");
             }
         }

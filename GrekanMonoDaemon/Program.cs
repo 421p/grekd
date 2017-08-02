@@ -1,6 +1,7 @@
-﻿using GrekanMonoDaemon.Job;
+﻿using System;
+using GrekanMonoDaemon.Job;
 using GrekanMonoDaemon.Logging;
-using GrekanMonoDaemon.Server;
+using Microsoft.Owin.Hosting;
 
 namespace GrekanMonoDaemon
 {
@@ -10,12 +11,13 @@ namespace GrekanMonoDaemon
         {
             Logger.InitLogger();
 
-            var scheduler = new Scheduler();
-            scheduler.Engage();
+//            var scheduler = new Scheduler();
+//            scheduler.Engage();
+            const string baseUri = "http://localhost:11002";
 
-            var host = new Host();
-
-            host.Start();
+            WebApp.Start<Startup>(baseUri);
+            Console.WriteLine("Server running at {0} - press Enter to quit. ", baseUri);
+            Console.ReadLine();
         }
     }
 }
