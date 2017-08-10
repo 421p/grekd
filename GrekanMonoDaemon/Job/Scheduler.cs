@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Quartz;
 using Quartz.Impl;
-using Quartz.Spi;
 
 namespace GrekanMonoDaemon.Job
 {
@@ -26,9 +24,16 @@ namespace GrekanMonoDaemon.Job
                 JobBuilder.Create<GedPublish>().Build(),
                 TriggerBuilder.Create()
                     .StartNow()
-                    .WithDailyTimeIntervalSchedule(x =>
-                        x.WithIntervalInMinutes(40)
-                    .OnEveryDay())
+                    .WithSimpleSchedule(x => x.WithIntervalInMinutes(35).RepeatForever())
+            ));
+            
+            _jobs.Add(new Tuple<IJobDetail, TriggerBuilder>(
+                JobBuilder.Create<GrekileaksPublish>().Build(),
+                TriggerBuilder.Create()
+                    .StartNow()
+                    .WithDailyTimeIntervalSchedule(x => x.OnEveryDay()
+                        .StartingDailyAt(new TimeOfDay(1, 0))
+                        .EndingDailyAfterCount(1))
             ));
 
             _jobs.Add(new Tuple<IJobDetail, TriggerBuilder>(

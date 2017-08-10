@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Reflection;
 using GrekanMonoDaemon.Server.Controllers;
@@ -33,6 +32,8 @@ namespace GrekanMonoDaemon.Server
         {
             var path = args.Request.Path;
 
+            Console.WriteLine(path);
+            
             if (_routes.ContainsKey(path))
             {
                 _routes[path](args.Request, args.Response);

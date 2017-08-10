@@ -57,6 +57,8 @@ namespace GrekanMonoDaemon.Server.Controllers.Images
                 Logger.Info($"User noted as '{key.Note}' just added a new image.");
                 Logger.Info($"http://backend.grekan.tk/get_image?id={ImageRepository.LastId()}");
 
+                ImageRepository.ResetInternalPointer();
+                
                 response.WriteLine("s u c c");
             }
         }

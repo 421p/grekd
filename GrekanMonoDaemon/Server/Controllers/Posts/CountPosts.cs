@@ -1,5 +1,4 @@
-﻿using GrekanMonoDaemon.ImageProcessing;
-using GrekanMonoDaemon.Repository;
+﻿using GrekanMonoDaemon.Repository;
 using GrekanMonoDaemon.Util;
 using NHttp;
 

@@ -1,7 +1,14 @@
 ﻿using System;
+using System.Drawing.Imaging;
+using System.IO;
+using System.Threading;
+using GrekanMonoDaemon.ImageProcessing;
 using GrekanMonoDaemon.Job;
 using GrekanMonoDaemon.Logging;
-using Microsoft.Owin.Hosting;
+using GrekanMonoDaemon.Server;
+using Tweetinvi;
+using Tweetinvi.Models;
+using Tweetinvi.Parameters;
 
 namespace GrekanMonoDaemon
 {
@@ -11,13 +18,13 @@ namespace GrekanMonoDaemon
         {
             Logger.InitLogger();
 
-//            var scheduler = new Scheduler();
-//            scheduler.Engage();
-            const string baseUri = "http://localhost:11002";
-
-            WebApp.Start<Startup>(baseUri);
-            Console.WriteLine("Server running at {0} - press Enter to quit. ", baseUri);
-            Console.ReadLine();
+            var scheduler = new Scheduler();
+            scheduler.Engage();
+            
+            var host = new Host();
+            host.Start();
+            
+            Thread.CurrentThread.Join();
         }
     }
 }

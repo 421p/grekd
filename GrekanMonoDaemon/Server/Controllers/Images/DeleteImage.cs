@@ -1,5 +1,4 @@
-﻿using System.Drawing.Imaging;
-using GrekanMonoDaemon.Repository;
+﻿using GrekanMonoDaemon.Repository;
 using GrekanMonoDaemon.Util;
 using NHttp;
 
@@ -44,6 +43,9 @@ namespace GrekanMonoDaemon.Server.Controllers.Images
             }
 
             ImageRepository.Delete(id);
+            
+            ImageRepository.ResetInternalPointer();
+            
             response.WriteLine("s u c c");
         }
     }
