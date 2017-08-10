@@ -14,7 +14,8 @@ namespace GrekanMonoDaemon.Repository
         private static readonly MongoClient _client;
         private static readonly IMongoCollection<StoredImage> _images;
         private static readonly GRandom _generator;
-
+        private static Gointer _pointer;
+        
         public static async Task<long> GetCountAsync()
         {
             return await _images.CountAsync(FilterDefinition<StoredImage>.Empty);
@@ -25,12 +26,23 @@ namespace GrekanMonoDaemon.Repository
             return _images.Count(FilterDefinition<StoredImage>.Empty);
         }
 
+        public static long LastId()
+        {
+            return GetCount() - 1;
+        }
+
         static ImageRepository()
         {
             _client = new MongoClient();
             var db = _client.GetDatabase("grekileaks");
             _images = db.GetCollection<StoredImage>("images");
             _generator = new GRandom();
+            ResetInternalPointer();
+        }
+
+        public static void ResetInternalPointer()
+        {
+            _pointer = new Gointer(LastId());
         }
 
         public static void Add(byte[] bytes)
@@ -56,9 +68,10 @@ namespace GrekanMonoDaemon.Repository
 
         public static async Task<byte[]> GetImageRaw()
         {
+            var index = _pointer.Index;
             var data = await _images.Find(FilterDefinition<StoredImage>.Empty)
                 .Limit(-1)
-                .Skip(_generator.Next(0, await GetCountAsync() - 1))
+                .Skip((int?) index)
                 .FirstAsync();
 
             return data.Bytes;

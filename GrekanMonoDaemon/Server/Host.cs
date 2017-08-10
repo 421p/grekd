@@ -1,11 +1,5 @@
-﻿using System;
-using System.Drawing.Imaging;
-using System.IO;
-using System.Linq;
-using System.Net;
-using GrekanMonoDaemon.ImageProcessing;
+﻿using System.Net;
 using GrekanMonoDaemon.Logging;
-using GrekanMonoDaemon.Util;
 using NHttp;
 
 namespace GrekanMonoDaemon.Server

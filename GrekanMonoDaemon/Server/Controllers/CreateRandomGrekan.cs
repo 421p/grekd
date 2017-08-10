@@ -11,7 +11,7 @@ namespace GrekanMonoDaemon.Server.Controllers
             response.ContentType = "image/jpeg";
             var task = ImageFactory.Generate(true);
 
-            using (var image = task.Result)
+            using (var image = task.Result.Item1)
             {
                 image.Save(response.OutputStream, ImageFormat.Jpeg);
             }

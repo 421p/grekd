@@ -7,5 +7,6 @@ namespace GrekanMonoDaemon.Util
         public ObjectId Id { get; set; }
         public string Value { get; set; }
         public string Level { get; set; }
+        public string Note { get; set; }
     }
 }
